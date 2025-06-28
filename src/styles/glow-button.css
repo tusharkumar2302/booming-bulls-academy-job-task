@@ -1,0 +1,46 @@
+.glowing-button-wrapper {
+    position: relative;
+    display: inline-block;
+    padding: 1px; /* thin border */
+    border-radius: 16px; /* match with button */
+    background: linear-gradient(130deg,
+        #ffffff,
+        #c0c0c0,
+        #ffffff,
+        #c0c0c0,
+        #ffffff);
+    background-size: 400% 400%;
+    animation: glow-animation 5s linear infinite;
+}
+
+@keyframes glow-animation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.glowing-button {
+    background-color: #6242A5 !important;
+    color: white !important;
+    padding: 24px 40px; 
+    border-radius: 14px;
+    font-weight: 500;
+    font-size: large;
+    position: relative;
+    z-index: 1;
+}
+
+.glowing-button-wrapper::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 0;
+    border-radius: inherit;
+    background: inherit;
+    filter: blur(3px); /* softer edge */
+    opacity: 0.7;
+    pointer-events: none;
+}
