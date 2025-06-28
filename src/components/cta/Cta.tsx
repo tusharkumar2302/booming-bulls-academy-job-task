@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
-import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { COLORS } from "../../constants/colors";
@@ -125,7 +124,6 @@ const Cta: React.FC = () => {
                 />
               </motion.div>
 
-              {/* Responsive Text */}
               <motion.h2
                 ref={textRef}
                 style={{ x: smoothX, color: COLORS.textPrimary }}

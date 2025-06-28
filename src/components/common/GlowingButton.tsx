@@ -1,5 +1,3 @@
-// components/GlowingButton.tsx
-
 import { ArrowRight } from "lucide-react";
 import "../../styles/glow-button.css";
 import { Button } from "./button";
