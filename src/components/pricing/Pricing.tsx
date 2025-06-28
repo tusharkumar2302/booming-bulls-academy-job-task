@@ -1,14 +1,27 @@
 "use client";
 
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { COLORS } from "../../constants/colors";
 import { FONT_SIZES } from "../../constants/dimensions";
-import { PLANS_COMPARISON } from "../../constants/strings";
-import PricingCard from "./PricingCard";
+import { CTA_STRINGS, PLANS_COMPARISON } from "../../constants/strings";
 import { Button } from "../common/button";
+import PricingCard from "./PricingCard";
 
 export default function Pricing() {
   const ref = useRef(null);
+  const ctaRef = useRef(null);
+  const isInView = useInView(ctaRef, { once: true, margin: "-100px" });
+
+  // Animation variants for staggered fade-in-up
+  const ctaVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay: i * 0.15, duration: 0.7, ease: "easeOut" },
+    }),
+  };
 
   return (
     <div
@@ -30,14 +43,25 @@ export default function Pricing() {
 
       <div className="text-center">
         <h2
-          className={FONT_SIZES.special.sectionTitle + " font-semibold"}
-          style={{ color: COLORS.textPrimary }}
+          className={
+            FONT_SIZES.special.sectionTitle +
+            " font-semibold bg-gradient-to-r from-white to-gray-400 text-transparent bg-clip-text text-center"
+          }
         >
           {PLANS_COMPARISON.title.split("Abcd").map((part, idx, arr) =>
             idx < arr.length - 1 ? (
               <span key={idx}>
                 {part}
-                <span style={{ color: COLORS.secondary }}>Abcd</span>
+                <span
+                  style={{
+                    color: COLORS.primary,
+                    background: "none",
+                    WebkitBackgroundClip: "initial",
+                    WebkitTextFillColor: "initial",
+                  }}
+                >
+                  Abcd
+                </span>
               </span>
             ) : (
               part
@@ -46,7 +70,7 @@ export default function Pricing() {
         </h2>
         <p
           className={`mt-3 ${FONT_SIZES.text.lg}`}
-          style={{ color: COLORS.gray400 }}
+          style={{ color: COLORS.textMuted }}
         >
           {PLANS_COMPARISON.subtitle}
         </p>
@@ -56,12 +80,12 @@ export default function Pricing() {
         ref={ref}
         className="mt-12 flex flex-col md:flex-row gap-0 max-w-7xl mx-auto"
       >
-        <div className="hidden md:flex flex-col self-center justify-center text-left text-sm px-6 py-10 w-1/4 space-y-6">
+        <div className="hidden md:flex flex-col self-start justify-start text-left text-sm px-6 py-10 w-[350px] space-y-5 mt-[80px]">
           {PLANS_COMPARISON.labels.map((label, idx) => (
-            <div key={idx} style={{ color: COLORS.gray400 }}>
+            <div key={idx}>
               <span
-                className="font-semibold"
-                style={{ color: COLORS.textPrimary }}
+                className="font-semibold mb-3.5 block"
+                style={{ color: COLORS.gray500 }}
               >
                 {label}
               </span>
@@ -106,6 +130,40 @@ export default function Pricing() {
           ))}
         </div>
       </div>
+
+      {/* CTA Section */}
+      <motion.div
+        ref={ctaRef}
+        className="w-full flex flex-col items-center mt-40 text-center"
+        initial={{ opacity: 0, y: 60, filter: "blur(12px)" }}
+        whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        exit={{ opacity: 0, y: 60, filter: "blur(12px)" }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
+        viewport={{ once: false, amount: 0.5 }}
+      >
+        <Button
+          className="rounded-full px-6 py-3 border transition mb-6"
+          style={{
+            backgroundColor: COLORS.buttonBg,
+            borderColor: COLORS.buttonBorder,
+            color: COLORS.secondary,
+          }}
+        >
+          {CTA_STRINGS.payoutsButton}
+        </Button>
+        <h1 className="font-semibold mb-2 text-[2rem] sm:text-[2.5rem] md:text-[3rem] lg:text-[3.625rem] bg-gradient-to-r from-white to-gray-400 text-transparent bg-clip-text text-center">
+          {CTA_STRINGS.headline} <br />
+          <span className="bg-gradient-to-r from-white to-gray-400 text-transparent bg-clip-text">
+            {CTA_STRINGS.highlight}
+          </span>
+        </h1>
+        <p
+          className={`mb-4 ${FONT_SIZES.text.lg} text-center`}
+          style={{ color: COLORS.textMuted }}
+        >
+          {CTA_STRINGS.subtitle}
+        </p>
+      </motion.div>
     </div>
   );
 }

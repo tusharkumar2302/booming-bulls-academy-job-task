@@ -20,7 +20,7 @@ export const HERO_STEPS = [
 ];
 
 export const PLANS_COMPARISON = {
-  processButton: "Our Process",
+  processButton: "Compare Plans",
   title: "Compare your Abcd plan",
   subtitle: "Flexible Deposits for Every Trader",
   labels: [
@@ -80,7 +80,7 @@ export const PLANS_COMPARISON = {
     {
       name: "Abcd Pro",
       description:
-        "Ideal for experienced traders seeking precision, speed, and high-stakes performance.",
+        "Ideal for experienced traders seeking precision, speed, and high-stakes.",
       features: {
         capitalRequirement: "$500",
         spread: "from 0.1 pips",

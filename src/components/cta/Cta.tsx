@@ -8,6 +8,7 @@ import { COLORS } from "../../constants/colors";
 import { FONT_SIZES } from "../../constants/dimensions";
 import { CTA_STRINGS } from "../../constants/strings";
 import { Button } from "../common/button";
+import { GlowingButton } from "../common/GlowingButton";
 
 const Cta: React.FC = () => {
   const [count, setCount] = useState<number>(999150);
@@ -61,21 +62,19 @@ const Cta: React.FC = () => {
           muted
           playsInline
           className="absolute inset-0 w-full h-full object-cover"
-          style={{ filter: "brightness(1.25)" }}
+                        style={{
+                background: `linear-gradient(to bottom, ${COLORS.ctaGradientFrom})`,
+              }}
         >
           <source src={CTA_STRINGS.videoSrc} type="video/mp4" />
-          Your browser does not support the video tag.
         </video>
 
         <div
-          className="relative z-10 flex flex-col items-center justify-center min-h-screen text-center px-4 py-10 md:py-20"
+          className="relative z-10 flex flex-col items-center justify-center min-h-screen text-center py-10 md:py-20"
           style={{ background: `${COLORS.overlay}` }}
         >
           <motion.div
-            className={`mt-8 mb-8 bg-gradient-to-r text-transparent bg-clip-text ${FONT_SIZES.special.statNumber}`}
-            style={{
-              backgroundImage: `linear-gradient(to right, ${COLORS.gray100}, ${COLORS.primary})`,
-            }}
+            className={`mt-8 mb-8 flex justify-center gap-0 ${FONT_SIZES.special.statNumber}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
@@ -84,34 +83,35 @@ const Cta: React.FC = () => {
               ? `${CTA_STRINGS.countPrefix}${count.toLocaleString("en-US")}${
                   CTA_STRINGS.countSuffix
                 }`
+                  .split("")
+                  .map((char, idx) => (
+                    <span
+                      key={idx}
+                      className="bg-gradient-to-r from-white to-gray-500 text-transparent bg-clip-text"
+                      style={{ fontFamily: "Helvetica, Arial, sans-serif" }}
+                    >
+                      {char}
+                    </span>
+                  ))
               : null}
           </motion.div>
 
-          <Button
-            variant="secondary"
-            className={`mt-4 mb-12 flex items-center gap-2 px-24 py-8 rounded-2xl ${FONT_SIZES.special.buttonText}`}
-            style={{
-              color: COLORS.textPrimary,
-              backgroundColor: COLORS.buttonBg,
-              borderColor: COLORS.buttonBorder,
-            }}
-          >
+          <GlowingButton bgColor="black">
             {CTA_STRINGS.areYouNext}
-            <ArrowRight size={18} />
-          </Button>
+          </GlowingButton>
 
           <div className="flex flex-col items-center justify-center w-full relative gap-y-12">
             {/* Text with QR overlay */}
             <div
-              className="relative w-fit mx-auto flex items-center justify-center min-h-[180px] sm:min-h-[220px] md:min-h-[300px] lg:min-h-[350px] mt-80"
+              className="relative w-full flex items-center justify-center min-h-[180px] sm:min-h-[220px] md:min-h-[300px] lg:min-h-[350px] mt-80"
               style={{
-                background: `linear-gradient(to bottom, ${COLORS.ctaGradientFrom}, ${COLORS.ctaGradientVia})`,
+                background: `linear-gradient(to bottom, ${COLORS.ctaGradientFrom})`,
               }}
             >
               {/* QR Code Overlay */}
               <motion.div
                 transition={{ type: "spring", stiffness: 300 }}
-                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-[230px] lg:h-[230px] bg-white p-2 rounded-xl flex items-center justify-center"
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-[230px] lg:h-[230px] bg-white p-2 rounded-xl flex items-center justify-center mt-30"
                 style={{
                   boxShadow: COLORS.qrShadow,
                 }}
@@ -137,7 +137,6 @@ const Cta: React.FC = () => {
                 </span>
               </motion.h2>
             </div>
-
             {/* App Store/Play Store Images */}
             <div className="mt-40 flex flex-col sm:flex-row gap-4 items-center mb-8">
               <Image
@@ -147,7 +146,6 @@ const Cta: React.FC = () => {
                 height={40}
                 priority
               />
-              {/* Add more store badges here if needed */}
             </div>
           </div>
         </div>

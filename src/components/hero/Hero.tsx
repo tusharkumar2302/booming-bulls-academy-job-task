@@ -46,7 +46,7 @@ export default function Hero() {
       {/* Header */}
       <div className="relative z-20 flex flex-col items-center">
         <Button
-          className="rounded-full px-6 py-3 border transition mb-6"
+          className="rounded-full px-4 sm:px-6 py-2 sm:py-3 border transition mb-6 text-base sm:text-lg"
           style={{
             backgroundColor: COLORS.buttonBg,
             borderColor: COLORS.buttonBorder,
@@ -59,7 +59,17 @@ export default function Hero() {
           variants={container}
           initial="hidden"
           animate="visible"
-          className={`${FONT_SIZES.headings.h1} font-manrope whitespace-nowrap flex gap-2`}
+          className={`
+    ${FONT_SIZES.headings.h1}
+    font-manrope
+    flex flex-wrap gap-2
+    text-center
+    justify-center
+    w-full
+    max-w-4xl
+    mx-auto
+    leading-tight
+  `}
           style={{ color: COLORS.textPrimary }}
         >
           {HERO_STRINGS.headingWords.map((w: any, i: number) => (
@@ -76,7 +86,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 0 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2 }}
-          className={`mt-4 ${FONT_SIZES.text.xl} max-w-xl text-center mx-auto`}
+          className={`mt-4 text-base sm:text-xl max-w-xl text-center mx-auto`}
           style={{ color: COLORS.textMuted, opacity: 0.3 }}
         >
           {HERO_STRINGS.subheading}
@@ -84,7 +94,7 @@ export default function Hero() {
       </div>
 
       {/* Timeline */}
-      <div className="relative z-30 flex flex-col items-center mt-16 w-full max-w-6xl mx-auto space-y-8 ml-120">
+      <div className="relative z-30 flex flex-col items-center mt-10 sm:mt-16 w-full max-w-6xl lg:ml-56 space-y-8 px-2">
         {HERO_STEPS.map((step) => (
           <TimelineStep
             key={step.id}

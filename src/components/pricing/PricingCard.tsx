@@ -32,20 +32,23 @@ export default function PricingCard({
             : "bg-gradient-to-tl from-[#000000b5] to-[#3811387d]"
         }`}
       >
-        <h3 className="text-xl md:text-2xl font-semibold text-white mb-2 text-center">
+        <h3 className=" text-xl md:text-2xl font-semibold mb-2 text-center bg-gradient-to-r from-white to-gray-400 text-transparent bg-clip-text">
           {title}
         </h3>
         <ul className="text-sm text-white space-y-5">
           <li className="flex flex-col items-center text-center font-semibold">
-            <p className="text-gray-300">{description}</p>
-            <GradientLine />
+            <p className="text-white">{description}</p>
+            <div className="mt-6 h-[1px] w-[200px] bg-gradient-to-r from-black via-[#736496] to-black" />
           </li>
           <li className="flex flex-col items-center text-center font-semibold">
             <p className="text-white">{price}</p>
             <GradientLine />
           </li>
           {features.map((feature, idx) => (
-            <li key={idx} className="flex flex-col items-center text-center font-semibold">
+            <li
+              key={idx}
+              className="flex flex-col items-center text-center font-semibold"
+            >
               <p className="text-white">{feature}</p>
               <GradientLine />
             </li>
@@ -55,7 +58,12 @@ export default function PricingCard({
             <GradientLine />
           </li>
         </ul>
-        <button className="mt-8 px-8 bg-gradient-to-r from-[#B084FB] to-[#9C8DFF] text-white font-semibold py-3 rounded-xl hover:opacity-90 transition-all">
+        <button
+          className="mt-8 px-6 text-white font-semibold py-3 rounded-xl hover:opacity-90 transition-all cursor-pointer"
+          style={{
+            background: "linear-gradient(90deg, #B084FB 92%)",
+          }}
+        >
           Start Trading
         </button>
       </div>
