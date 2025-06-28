@@ -60,16 +60,17 @@ export default function Hero() {
           initial="hidden"
           animate="visible"
           className={`
-    ${FONT_SIZES.headings.h1}
-    font-manrope
-    flex flex-wrap gap-2
-    text-center
-    justify-center
-    w-full
-    max-w-4xl
-    mx-auto
-    leading-tight
+          ${FONT_SIZES.headings.h1}
+          font-manrope
+          text-center
+          justify-center
+          w-full
+          max-w-4xl
+          mx-auto
+          leading-tight
+          flex flex-wrap gap-2
   `}
+
           style={{ color: COLORS.textPrimary }}
         >
           {HERO_STRINGS.headingWords.map((w: any, i: number) => (
