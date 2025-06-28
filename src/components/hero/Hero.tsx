@@ -46,7 +46,7 @@ export default function Hero() {
       {/* Header */}
       <div className="relative z-20 flex flex-col items-center">
         <Button
-          className="rounded-full px-4 sm:px-6 py-2 sm:py-3 border transition mb-6 text-base sm:text-lg"
+          className="rounded-full px-6 py-3 border transition mb-3"
           style={{
             backgroundColor: COLORS.buttonBg,
             borderColor: COLORS.buttonBorder,
@@ -70,7 +70,6 @@ export default function Hero() {
           leading-tight
           flex flex-wrap gap-2
   `}
-
           style={{ color: COLORS.textPrimary }}
         >
           {HERO_STRINGS.headingWords.map((w: any, i: number) => (
