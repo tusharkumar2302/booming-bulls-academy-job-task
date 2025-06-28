@@ -62,9 +62,9 @@ const Cta: React.FC = () => {
           muted
           playsInline
           className="absolute inset-0 w-full h-full object-cover"
-                        style={{
-                background: `linear-gradient(to bottom, ${COLORS.ctaGradientFrom})`,
-              }}
+          style={{
+            background: `linear-gradient(to bottom, ${COLORS.ctaGradientFrom})`,
+          }}
         >
           <source src={CTA_STRINGS.videoSrc} type="video/mp4" />
         </video>

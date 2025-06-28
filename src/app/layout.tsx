@@ -14,7 +14,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Think Superior, Trade Zuperior",
-  description: "Join the next generation of smart traders. Learn, strategize, and trade with confidence at Booming Bulls Academy.",
+  description:
+    "Join the next generation of smart traders. Learn, strategize, and trade with confidence at Booming Bulls Academy.",
 };
 
 export default function RootLayout({
