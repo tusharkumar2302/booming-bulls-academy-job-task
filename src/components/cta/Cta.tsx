@@ -1,0 +1,159 @@
+"use client";
+
+import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { ArrowRight } from "lucide-react";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+import { COLORS } from "../../constants/colors";
+import { FONT_SIZES } from "../../constants/dimensions";
+import { CTA_STRINGS } from "../../constants/strings";
+import { Button } from "../common/button";
+
+const Cta: React.FC = () => {
+  const [count, setCount] = useState<number>(999150);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    let current = 999150;
+    const target = 999200;
+    const interval = 1000; // 1 second per increment
+
+    const timer = setInterval(() => {
+      current += 1;
+      if (current > target) {
+        clearInterval(timer);
+        setCount(target);
+      } else {
+        setCount(current);
+      }
+    }, interval);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const textRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: textRef,
+    offset: ["start end", "center center"],
+  });
+
+  const rawX = useTransform(scrollYProgress, [0, 1], ["100%", "0%"]);
+  const smoothX = useSpring(rawX, {
+    stiffness: 50,
+    damping: 20,
+    mass: 1,
+  });
+
+  return (
+    <>
+      {/* Video Section */}
+      <div
+        className="relative w-full overflow-hidden font-manrope"
+        style={{ color: COLORS.textPrimary }}
+      >
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ filter: "brightness(1.25)" }}
+        >
+          <source src={CTA_STRINGS.videoSrc} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+
+        <div
+          className="relative z-10 flex flex-col items-center justify-center min-h-screen text-center px-4 py-10 md:py-20"
+          style={{ background: `${COLORS.overlay}` }}
+        >
+          <motion.div
+            className={`mt-8 mb-8 bg-gradient-to-r text-transparent bg-clip-text ${FONT_SIZES.special.statNumber}`}
+            style={{
+              backgroundImage: `linear-gradient(to right, ${COLORS.gray100}, ${COLORS.primary})`,
+            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+          >
+            {isClient
+              ? `${CTA_STRINGS.countPrefix}${count.toLocaleString("en-US")}${
+                  CTA_STRINGS.countSuffix
+                }`
+              : null}
+          </motion.div>
+
+          <Button
+            variant="secondary"
+            className={`mt-4 mb-12 flex items-center gap-2 px-24 py-8 rounded-2xl ${FONT_SIZES.special.buttonText}`}
+            style={{
+              color: COLORS.textPrimary,
+              backgroundColor: COLORS.buttonBg,
+              borderColor: COLORS.buttonBorder,
+            }}
+          >
+            {CTA_STRINGS.areYouNext}
+            <ArrowRight size={18} />
+          </Button>
+
+          <div className="flex flex-col items-center justify-center w-full relative gap-y-12">
+            {/* Text with QR overlay */}
+            <div
+              className="relative w-fit mx-auto flex items-center justify-center min-h-[180px] sm:min-h-[220px] md:min-h-[300px] lg:min-h-[350px] mt-80"
+              style={{
+                background: `linear-gradient(to bottom, ${COLORS.ctaGradientFrom}, ${COLORS.ctaGradientVia})`,
+              }}
+            >
+              {/* QR Code Overlay */}
+              <motion.div
+                transition={{ type: "spring", stiffness: 300 }}
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-[230px] lg:h-[230px] bg-white p-2 rounded-xl flex items-center justify-center"
+                style={{
+                  boxShadow: COLORS.qrShadow,
+                }}
+              >
+                <Image
+                  src={CTA_STRINGS.qrImg}
+                  alt={CTA_STRINGS.qrAlt}
+                  width={230}
+                  height={230}
+                  className="rounded-md w-full h-full object-contain"
+                />
+              </motion.div>
+
+              {/* Responsive Text */}
+              <motion.h2
+                ref={textRef}
+                style={{ x: smoothX, color: COLORS.textPrimary }}
+                className={`${FONT_SIZES.headings.h2} text-center whitespace-nowrap w-full px-2 mt-60`}
+              >
+                {CTA_STRINGS.tradeHeadline}{" "}
+                <span style={{ color: COLORS.primary }}>
+                  {CTA_STRINGS.tradeHighlight}
+                </span>
+              </motion.h2>
+            </div>
+
+            {/* App Store/Play Store Images */}
+            <div className="mt-40 flex flex-col sm:flex-row gap-4 items-center mb-8">
+              <Image
+                src={CTA_STRINGS.playStoreImg}
+                alt={CTA_STRINGS.playStoreAlt}
+                width={120}
+                height={40}
+                priority
+              />
+              {/* Add more store badges here if needed */}
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Cta;
