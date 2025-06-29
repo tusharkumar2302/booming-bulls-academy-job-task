@@ -109,7 +109,7 @@ const Cta: React.FC = () => {
               {/* QR Code Overlay */}
               <motion.div
                 transition={{ type: "spring", stiffness: 300 }}
-                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-[230px] lg:h-[230px] bg-white p-2 rounded-xl flex items-center justify-center"
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-[230px] lg:h-[230px] bg-[#2e2e2e] p-3 rounded-3xl flex items-center justify-center"
                 style={{
                   boxShadow: COLORS.qrShadow,
                 }}
@@ -119,7 +119,8 @@ const Cta: React.FC = () => {
                   alt={CTA_STRINGS.qrAlt}
                   width={230}
                   height={230}
-                  className="rounded-md w-full h-full object-contain"
+                  className="rounded-2xl w-full h-full object-contain"
+                  style={{ filter: "brightness(0) invert(1)" }}
                 />
               </motion.div>
 
@@ -135,9 +136,7 @@ const Cta: React.FC = () => {
               </motion.h2>
             </div>
             {/* App Store/Play Store Images */}
-            <div
-              className=" w-full flex flex-col sm:flex-row items-center justify-center  bg-[#00010d] mt-40 mb-20"
-            >
+            <div className=" w-full flex flex-col sm:flex-row items-center justify-center  bg-[#00010d] mt-40 mb-20">
               <Image
                 src={CTA_STRINGS.playStoreImg}
                 alt={CTA_STRINGS.playStoreAlt}
