@@ -44,11 +44,11 @@ export default function TimelineStep({
     offset: ["start end", "end start"],
   });
 
-  const height = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  const height = useTransform(scrollYProgress, [0, 1], ["0%", "150%"]);
   const color = useTransform(scrollYProgress, [0, 1], ["#12131D", "#fff"]);
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full ">
       <div ref={ref} className="relative flex items-start w-full ">
         {/* Left side: Show content if step is even */}
         <div className="w-1/3 text-right pr-4 ">
@@ -64,22 +64,31 @@ export default function TimelineStep({
           )}
         </div>
         {/* Center: Step number and timeline */}
-        <div className="w-1/6 flex flex-col items-center relative">
+        <div className="w-1/7 flex flex-col items-center relative ">
           <div
             ref={numberRef}
-            className="w-full flex flex-row items-center justify-center relative"
+            className="w-full flex flex-row items-center justify-center relative "
           >
             <motion.div
-              style={{ color }}
-              className="text-4xl font-bold z-10 mt-2 mb-4"
+              style={{
+                color: isInView ? "#fff" : "#12131D",
+                fontWeight: "bold",
+              }}
+              className="w-full h-full text-4xl font-extrabold z-10 mt-2 mb-4"
             >
               {String(step.id).padStart(2, "0")}
             </motion.div>
           </div>
           <div className="relative h-64 mt-2 mb-2">
-            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[3px] h-full bg-[#151521]" />
+            {/* Gray static timeline */}
+            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[3px] h-full bg-[#151521] " />
+
+            {/* Animated colored timeline */}
             <motion.div
-              style={{ height }}
+              style={{
+                height: isInView ? height : "0%",
+                transition: "height 0.5s cubic-bezier(0.4,2,0.6,1)",
+              }}
               className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[3px] bg-[#D5C5FA]"
             />
           </div>
@@ -100,7 +109,7 @@ export default function TimelineStep({
       </div>
 
       {isLast && (
-        <div className="mt-20 pb-32 flex mr-50 justify-center">
+        <div className="mt-20 pb-32 flex lg:mr-50 justify-center">
           <GlowingButton>Open FREE Account </GlowingButton>
         </div>
       )}

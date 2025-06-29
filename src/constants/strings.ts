@@ -22,6 +22,7 @@ export const HERO_STEPS = [
 export const PLANS_COMPARISON = {
   processButton: "Compare Plans",
   title: "Compare your Abcd plan",
+  title2: "Start Small, Scale Big",
   subtitle: "Flexible Deposits for Every Trader",
   labels: [
     "Who It's For",

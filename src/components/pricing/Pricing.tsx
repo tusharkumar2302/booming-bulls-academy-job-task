@@ -1,17 +1,29 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { COLORS } from "../../constants/colors";
 import { FONT_SIZES } from "../../constants/dimensions";
 import { CTA_STRINGS, PLANS_COMPARISON } from "../../constants/strings";
 import { Button } from "../common/button";
 import PricingCard from "./PricingCard";
 
+function useIsMobile(breakpoint = 640) {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < breakpoint);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, [breakpoint]);
+  return isMobile;
+}
+
 export default function Pricing() {
   const ref = useRef(null);
   const ctaRef = useRef(null);
   const isInView = useInView(ctaRef, { once: true, margin: "-100px" });
+  const isMobile = useIsMobile();
 
   // Animation variants for staggered fade-in-up
   const ctaVariants = {
@@ -48,23 +60,48 @@ export default function Pricing() {
             " font-semibold bg-gradient-to-r from-white to-gray-400 text-transparent bg-clip-text text-center"
           }
         >
-          {PLANS_COMPARISON.title.split("Abcd").map((part, idx, arr) =>
-            idx < arr.length - 1 ? (
-              <span key={idx}>
-                {part}
-                <span
-                  style={{
-                    color: COLORS.primary,
-                    background: "none",
-                    WebkitBackgroundClip: "initial",
-                    WebkitTextFillColor: "initial",
-                  }}
-                >
-                  Abcd
+          {isMobile ? (
+            <>
+              {PLANS_COMPARISON.title2.split("Scale").map((part, idx, arr) =>
+                idx < arr.length - 1 ? (
+                  <span key={idx}>
+                    {part}
+                    <br />
+                    <span
+                      style={{
+                        color: COLORS.primary,
+                        background: "none",
+                        WebkitBackgroundClip: "initial",
+                        WebkitTextFillColor: "initial",
+                      }}
+                    >
+                      Scale
+                    </span>
+                  </span>
+                ) : (
+                  part
+                )
+              )}{" "}
+            </>
+          ) : (
+            PLANS_COMPARISON.title.split("Abcd").map((part, idx, arr) =>
+              idx < arr.length - 1 ? (
+                <span key={idx}>
+                  {part}
+                  <span
+                    style={{
+                      color: COLORS.primary,
+                      background: "none",
+                      WebkitBackgroundClip: "initial",
+                      WebkitTextFillColor: "initial",
+                    }}
+                  >
+                    Abcd
+                  </span>
                 </span>
-              </span>
-            ) : (
-              part
+              ) : (
+                part
+              )
             )
           )}
         </h2>
@@ -132,38 +169,39 @@ export default function Pricing() {
       </div>
 
       {/* CTA Section */}
+      <div className="w-full flex flex-col items-center mt-40 text-center">
+      <Button
+        className="rounded-full px-6 py-3 border transition mb-6"
+        style={{
+          backgroundColor: COLORS.buttonBg,
+          borderColor: COLORS.buttonBorder,
+          color: COLORS.secondary,
+        }}
+      >
+        {CTA_STRINGS.payoutsButton}
+      </Button>
       <motion.div
         ref={ctaRef}
-        className="w-full flex flex-col items-center mt-40 text-center"
         initial={{ opacity: 0, y: 60, filter: "blur(12px)" }}
         whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
         exit={{ opacity: 0, y: 60, filter: "blur(12px)" }}
         transition={{ duration: 1.2, ease: "easeOut" }}
         viewport={{ once: false, amount: 0.5 }}
       >
-        <Button
-          className="rounded-full px-6 py-3 border transition mb-6"
-          style={{
-            backgroundColor: COLORS.buttonBg,
-            borderColor: COLORS.buttonBorder,
-            color: COLORS.secondary,
-          }}
-        >
-          {CTA_STRINGS.payoutsButton}
-        </Button>
-        <h1 className="font-semibold mb-2 text-[2rem] sm:text-[2.5rem] md:text-[3rem] lg:text-[3.625rem] bg-gradient-to-r from-white to-gray-400 text-transparent bg-clip-text text-center">
+        <h1 className="font-semibold mb-2 text-[2rem] sm:text-[2.5rem] md:text-[3rem] lg:text-[3.625rem] bg-gradient-to-r from-white to-gray-300 text-transparent bg-clip-text text-center">
           {CTA_STRINGS.headline} <br />
-          <span className="bg-gradient-to-r from-white to-gray-400 text-transparent bg-clip-text">
+          <span className="bg-gradient-to-r from-white to-gray-300 text-transparent bg-clip-text">
             {CTA_STRINGS.highlight}
           </span>
         </h1>
-        <p
-          className={`mb-4 ${FONT_SIZES.text.lg} text-center`}
-          style={{ color: COLORS.textMuted }}
-        >
-          {CTA_STRINGS.subtitle}
-        </p>
       </motion.div>
+      <p
+        className={`mb-4 ${FONT_SIZES.text.lg} text-center`}
+        style={{ color: COLORS.textMuted }}
+      >
+        {CTA_STRINGS.subtitle}
+      </p>
+    </div>
     </div>
   );
 }

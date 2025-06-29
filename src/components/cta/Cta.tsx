@@ -6,7 +6,6 @@ import { useEffect, useRef, useState } from "react";
 import { COLORS } from "../../constants/colors";
 import { FONT_SIZES } from "../../constants/dimensions";
 import { CTA_STRINGS } from "../../constants/strings";
-import { Button } from "../common/button";
 import { GlowingButton } from "../common/GlowingButton";
 
 const Cta: React.FC = () => {
@@ -19,7 +18,7 @@ const Cta: React.FC = () => {
 
   useEffect(() => {
     let current = 999150;
-    const target = 999200;
+    const target = 999716;
     const interval = 1000; // 1 second per increment
 
     const timer = setInterval(() => {
@@ -69,7 +68,7 @@ const Cta: React.FC = () => {
         </video>
 
         <div
-          className="relative z-10 flex flex-col items-center justify-center min-h-screen text-center py-10 md:py-20"
+          className="relative z-10 flex flex-col items-center justify-end min-h-screen text-center "
           style={{ background: `${COLORS.overlay}` }}
         >
           <motion.div
@@ -86,8 +85,8 @@ const Cta: React.FC = () => {
                   .map((char, idx) => (
                     <span
                       key={idx}
-                      className="bg-gradient-to-r from-white to-gray-500 text-transparent bg-clip-text"
-                      style={{ fontFamily: "Helvetica, Arial, sans-serif" }}
+                      className="bg-gradient-to-r from-white to-gray-500 text-transparent bg-clip-text mb-20"
+                      style={{ fontFamily: "Helvetica" }}
                     >
                       {char}
                     </span>
@@ -99,10 +98,10 @@ const Cta: React.FC = () => {
             {CTA_STRINGS.areYouNext}
           </GlowingButton>
 
-          <div className="flex flex-col items-center justify-center w-full relative gap-y-12">
+          <div className="flex flex-col items-center justify-end w-full h-full relative  mt-56">
             {/* Text with QR overlay */}
             <div
-              className="relative w-full flex items-center justify-center min-h-[180px] sm:min-h-[220px] md:min-h-[300px] lg:min-h-[350px] mt-80"
+              className="w-full h-full  mt-20 "
               style={{
                 background: `linear-gradient(to bottom, ${COLORS.ctaGradientFrom})`,
               }}
@@ -110,7 +109,7 @@ const Cta: React.FC = () => {
               {/* QR Code Overlay */}
               <motion.div
                 transition={{ type: "spring", stiffness: 300 }}
-                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-[230px] lg:h-[230px] bg-white p-2 rounded-xl flex items-center justify-center mt-30"
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-[230px] lg:h-[230px] bg-white p-2 rounded-xl flex items-center justify-center"
                 style={{
                   boxShadow: COLORS.qrShadow,
                 }}
@@ -136,7 +135,9 @@ const Cta: React.FC = () => {
               </motion.h2>
             </div>
             {/* App Store/Play Store Images */}
-            <div className="mt-40 flex flex-col sm:flex-row gap-4 items-center mb-8">
+            <div
+              className=" w-full flex flex-col sm:flex-row items-center justify-center  bg-[#00010d] mt-40 mb-20"
+            >
               <Image
                 src={CTA_STRINGS.playStoreImg}
                 alt={CTA_STRINGS.playStoreAlt}

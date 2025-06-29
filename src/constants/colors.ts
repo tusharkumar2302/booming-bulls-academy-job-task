@@ -36,7 +36,7 @@ export const COLORS = {
   buttonBorder: "rgba(255,255,255,0.2)",
 
   // Shadows
-  qrShadow: "0 0 250px #ffffff",
+  qrShadow: "0 0 200px 0px #fff", // White glow + purple fog
 
   // Transparent/Overlay
   overlay: "rgba(0, 0, 0, 0.5)",
